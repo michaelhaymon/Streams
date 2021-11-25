@@ -1,5 +1,6 @@
 package com.company;
 
+import java.security.cert.CollectionCertStoreParameters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Main {
 
         someBingoNumbers.stream()
                 .map(String::toUpperCase)
-                .filter(s->s.startsWith("G"))
+                .filter(s -> s.startsWith("G"))
                 .sorted()
                 .forEach(System.out::println);
 
@@ -64,14 +65,14 @@ public class Main {
         List<String> sortGNumbers = someBingoNumbers
                 .stream()
                 .map(String::toUpperCase)
-                .filter(s->s.startsWith("G"))
+                .filter(s -> s.startsWith("G"))
                 .sorted()
                 .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
 
-        for(String s : sortGNumbers) {
+        for (String s : sortGNumbers) {
             System.out.println(s);
         }
-
+        System.out.println("Employee Age");
         Map<Integer, List<Employee>> groupByAge = departments.stream()
                 .flatMap(department -> department.getEmployees().stream())
                 .collect(Collectors.groupingBy(employee -> employee.getAge()));
@@ -87,5 +88,13 @@ public class Main {
                     return s.length() == 3;
                 })
                 .count();
+
+        departments.stream()
+                .flatMap(department -> department.getEmployees().stream())
+                .filter(e -> e.getAge() > 29)
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
     }
+
 }
+
